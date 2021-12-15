@@ -14,7 +14,7 @@ func setUpDBConnection() (*sql.DB) {
         host     = "localhost"
         port     = 5432
         user     = "postgres"
-        password = "01042001Eb###"
+        password = ""
         dbname   = "commitWinterProject"
     )
 
