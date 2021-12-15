@@ -110,7 +110,7 @@ func getPostsByContent(c *gin.Context) {
 	desc := c.Param("desc")
 	var posts []Post
 
-    rows, err := db.Query("SELECT * FROM posts WHERE title LIKE *$1* OR description LIKE *$1*", desc)
+    rows, err := db.Query("SELECT * FROM posts WHERE title LIKE '%' || $1 || '%' OR description LIKE '%' || $1 || '%'", desc)
     if err != nil {
         c.IndentedJSON(http.StatusNotFound, gin.H{"message": err})
 		return
