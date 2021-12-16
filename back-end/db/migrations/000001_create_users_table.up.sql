@@ -1,5 +1,5 @@
 CREATE TABLE users (
-    uid		    INT PRIMARY KEY,
+    uid		    SERIAL PRIMARY KEY,
     name		TEXT,
     password	TEXT
 );

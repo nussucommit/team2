@@ -12,7 +12,7 @@ import (
 func setUpDBConnection() *sql.DB {
 	const (
 		host     = "localhost"
-		port     = 8080 // default set to 5432
+		port     = 5432 // default set to 5432
 		user     = "postgres"
 		password = "password"
 		dbname   = "commitWinterProject"
@@ -137,7 +137,7 @@ func postPost(c *gin.Context) {
 		return
 	}
 
-	result, err := db.Exec("INSERT INTO posts (pid, title, description, createdBy) VALUES ($1, $2, $3, $4)", post.Pid, post.Title, post.Description, post.CreatedBy)
+	result, err := db.Exec("INSERT INTO posts (title, description, createdBy) VALUES ($1, $2, $3, $4)", post.Title, post.Description, post.CreatedBy)
 	if err != nil {
 		c.IndentedJSON(http.StatusNotFound, gin.H{"message": err})
 		return
@@ -251,7 +251,7 @@ func postCommentByPid(c *gin.Context) {
 		return
 	}
 
-	result, err := db.Exec("INSERT INTO comments (cid, description, pid, createdBy) VALUES ($1, $2, $3, $4)", comment.Cid, comment.Description, pid, comment.CreatedBy)
+	result, err := db.Exec("INSERT INTO comments (description, pid, createdBy) VALUES ($1, $2, $3)", comment.Description, pid, comment.CreatedBy)
 	if err != nil {
 		c.IndentedJSON(http.StatusNotFound, gin.H{"message": err})
 		return
