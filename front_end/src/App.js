@@ -1,40 +1,26 @@
 import './App.css';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import Posts from './components/Posts';
-import CreatePost from './components/CreatePost';
-import Post from './components/Post'
+import Home from './components/Home';
+import {useState,useEffect} from 'react';
+import Login from './components/Login';
 
 
 
 function App() {
-  
-  return (
-    <Router>
-    <div>
-      <h1>HomePage</h1>
-      <Link to="/">Home</Link>
-      
-      <Switch>
-      <Route exact path="/">
-       <Posts author="John"/>
-      </Route>
-      <Route exact path="/CreatePost">
-        <CreatePost/>
-      </Route>
-      <Route exact path="/ClickedPost">
-        <Post/>
-      </Route>
+  const [isLoggedIn,inAndOut] = useState(false);
 
-      </Switch>
-      
-    </div>
-    </Router>
-  );
+  
+
+  const LoginAndOut = ()=>(
+    inAndOut(!isLoggedIn)
+  )
+  
+  if(isLoggedIn){
+    return <Home id={4} logoutFunction = {LoginAndOut}/>
+  }
+  else{
+    return <Login loginFunction = {LoginAndOut}/>
+  }
 }
+
 
 export default App;

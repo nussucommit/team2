@@ -1,21 +1,22 @@
-function Login() {
+import {  
+  Link
+} from "react-router-dom";
+
+function Login(props) {
   return (
     <div>
         <h1>This is the Login page</h1>
         <div>
-            <label for="username">Username:</label>
+            <label >Username:</label>
             <input type="text" id="username" name="username"></input> 
         </div>
 
         <div>
-            <label for="pass">Password (8 characters minimum):</label>
-            <input type="password" id="pass" name="password" minlength="8" required></input>
-        </div>
+            <label >Password (8 characters minimum):</label>
+            <input type="password" id="pass" name="password" minLength="8" required></input>
+         </div>
 
-
-        <div>
-            <button>Login</button>
-        </div>
+         <button onClick={props.loginFunction}>Login</button>
         
     </div>
   );

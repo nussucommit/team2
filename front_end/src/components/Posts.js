@@ -1,31 +1,33 @@
-import { useState} from 'react';
-import {Link} from 'react-router-dom'
+import { useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
+import axios from 'axios';
+import { useParams } from "react-router-dom";
 
 
 function Posts(props) {
-  const[PostTitles,setPosts] = useState([
-    {title: '1st post',author:'John',id: 1},
-    {title: '2nd post',author:'Sam',id: 2},
-    {title: '3rd post',author:'Kay',id: 3},
-  ]) 
+  const[PostTitles,setPosts] = useState(null) 
+  
 
-  const deletePost=(id)=>{   
-    const newPosts = PostTitles.filter(post => post.id!==id)
-    setPosts(newPosts);
-  }     
+
+  const deletePost=(id)=>{
+    var url = 'http://localhost:8080/posts/'+id.toString()
+    axios.delete(url,{data:{}}).catch(err=>console.log(err))
+  }
+
+  useEffect(()=>
+  axios.get('http://localhost:8080/posts').then(res=>{setPosts(res.data)}).catch(err=>console.log(err))
+  )
+
     return (
       <div>
-        <div>
-          <Link to="/CreatePost">New Post</Link>
-        </div>
-        {PostTitles.map((Title)=>(props.author!==Title.author?(
-          <div key={Title.id}>
-            <Link to="/ClickedPost">{Title.title}</Link>
+        {PostTitles === null?<p>No Posts</p>: PostTitles.map((Title)=>(props.id!==Title.createdBy?(
+          <div key={Title.pid}>
+            <Link to = {"/ClickedPost/"+Title.pid}>{Title.title}</Link>
           </div>):
           
-          (<div key={Title.id}>
-            <Link to="/ClickedPost">{Title.title}</Link>
-          <button onClick={()=>deletePost(Title.id)}>delete</button>
+          (<div key={Title.pid}>
+            <Link to = {"/ClickedPost/"+Title.pid}>{Title.title}</Link>
+          <button onClick={()=>deletePost(Title.pid)}>delete</button>
           </div>)
         ))}
         
