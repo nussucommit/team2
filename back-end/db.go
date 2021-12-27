@@ -317,7 +317,7 @@ func deleteComment(c *gin.Context) {
 		return
 	}
 
-	result, err := db.Exec("DELETE FROM comments WHERE pid = $1", id)
+	result, err := db.Exec("DELETE FROM comments WHERE cid = $1", id)
 	if err != nil {
 		c.IndentedJSON(http.StatusNotFound, gin.H{"message": err})
 		return
