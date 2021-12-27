@@ -1,35 +1,49 @@
-import { useState} from 'react';
+import axios from 'axios';
+import {useEffect, useState} from 'react';
 
 function Comments(props) {
-  const[CommentContent,setComment] = useState([
-    {content: '1st comment',author:'John',id: 1,likes:0},
-    {content: '2nd comment',author:'Sam',id: 2,likes:0},
-    {content: '3rd comment',author:'Kay',id: 3,likes:0},
-  ]) 
+  const[CommentContent,setComment] = useState(null) 
+  const URL='http://localhost:8080/comments/' + props.pid
 
-  const deletePost=(id)=>{   
-    const newPosts = CommentContent.filter(post => post.id!=id)
-    setComment(newPosts);
-  }
+  useEffect(()=>
+  axios.get(URL).then(res=>{setComment(res.data)}).catch(err=>console.log(err))
+  )
   
-  const increaselikes=(id)=>{
-    const newPosts = CommentContent.map(comment=>comment.id == id?{content:comment.content,author:comment.author,id:comment.id,likes:(comment.likes+1)}:{content:comment.content,author:comment.author,id:comment.id,likes:(comment.likes)})
-    setComment(newPosts);
+  const deleteComment=(id)=>{
+    var url = 'http://localhost:8080/comments/'+id.toString()
+    axios.delete(url,{data:{}}).catch(err=>console.log(err))
   }
+
+  const increaselikes=(id,likesCount)=>{
+    var url = 'http://localhost:8080/comments/' + id.toString()
+    axios.put(url,{
+      "likesCount" : likesCount+1
+    }).catch(err=>console.log(err))
+  }
+
+  if(CommentContent === null){
+    return (
+      <div>
+        <p>No Comments</p>
+      </div>
+    )
+  }
+
   return (
       <div>
-        {CommentContent.map((Title)=>(props.author!==Title.author?(
-          <div key={Title.id}>
-            <p>{Title.content}</p>
-            <p>{Title.likes}</p>
-            <button onClick={()=>increaselikes(Title.id)}>like</button>
+        {CommentContent.map((Title)=>(props.uid!==Title.author?(
+          <div key={Title.cid}>
+            <p>{Title.description}</p>
+            <p>{Title.likesCount}</p>
+            <button>Edit</button>
+            <button onClick={()=>increaselikes(Title.cid)}>like</button>
           </div>):
           
-          (<div key={Title.id}>
-          <p>{Title.content}</p>
-          <p>{Title.likes}</p>
+          (<div key={Title.cid}>
+          <p>{Title.description}</p>
+          <p>{Title.likesCount}</p>
           <button>Edit</button>
-          <button onClick={()=>deletePost(Title.id)}>delete</button>
+          <button onClick={()=>deleteComment(Title.cid,Title.likesCount)}>delete</button>
           </div>)
         ))}
       </div>

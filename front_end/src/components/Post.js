@@ -1,7 +1,8 @@
 import Comments from './Comments'
-import {useParams} from "react-router-dom"
+import {useParams,Link} from "react-router-dom"
 import axios from 'axios';
 import { useEffect, useState} from 'react';
+
 
 
 function Post(props) {
@@ -38,7 +39,8 @@ function Post(props) {
           <h1>{PostDetails.title}</h1>
           <p>{PostDetails.description}</p> 
           <p>{PostDetails.likesCount}</p>
-          <Comments author='John'/>   
+          <Link to = {"/CreateComment/"+pid}>Add a Comment</Link>
+          <Comments pid={pid} author={props.uid}/>   
       </div>
     );
   }
@@ -48,8 +50,9 @@ function Post(props) {
       <h1>{PostDetails.title}</h1>
       <p>{PostDetails.description}</p> 
       <p>{PostDetails.likesCount}</p>
+      <Link to = {"/CreateComment/"+pid}>Add a Comment</Link>
       <button onClick={likePost}>Like the post</button>
-      <Comments author='John'/>   
+      <Comments pid={pid} author={props.uid}/>   
   </div>
   );
 }

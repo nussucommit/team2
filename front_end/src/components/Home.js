@@ -2,6 +2,7 @@ import { Prompt } from "react-router-dom/cjs/react-router-dom.min";
 import Posts from "./Posts";
 import Post from "./Post"
 import CreatePost from "./CreatePost";
+import CreateComment from "./CreateComment";
 import {
     BrowserRouter as Router,
     Switch,
@@ -42,6 +43,10 @@ function Home(props) {
 
             <Route exact path ="/ClickedPost/:pid">
                 <Post uid={props.id}/>
+            </Route>
+
+            <Route exact path ="/CreateComment/:pid">
+                <CreateComment uid={props.id}/>
             </Route>
         </Switch>
       </div>
