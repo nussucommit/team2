@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
 
 function Comments(props) {
   const[CommentContent,setComment] = useState(null) 
@@ -42,8 +43,9 @@ function Comments(props) {
           (<div key={Title.cid}>
           <p>{Title.description}</p>
           <p>{Title.likesCount}</p>
-          <button>Edit</button>
+          <Link to = {"/EditComment/"+Title.cid}><button> Edit</button></Link>
           <button onClick={()=>deleteComment(Title.cid,Title.likesCount)}>delete</button>
+          
           </div>)
         ))}
       </div>

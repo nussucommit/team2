@@ -2,7 +2,7 @@ import './App.css';
 import Home from './components/Home';
 import {useState,useEffect} from 'react';
 import Login from './components/Login';
-
+import './App.css'
 
 
 function App() {

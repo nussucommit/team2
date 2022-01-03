@@ -1,38 +1,84 @@
-.App {
-  text-align: center;
+.primary{
+    font-size:2vw;
+    color:#ed7966;
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.navigationButtonsPosition{
+    justify-content:center;
+    display:flex;
+    flex-direction:column;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+.navigationButtons{
+    font-size:1.25vw;
+    color:#141850;
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.postTitle{
+    font-size:1.25vw;
+    color:#141850;
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
 
-.App-link {
-  color: #61dafb;
+.top{
+    display:flex;
+    justify-content:space-between;
+    background-color:white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.deletebutton{
+    font-size:0.45vw
+}
+
+
+.navigationbar{
+    display:flex;
+    gap:10px
+}
+
+.body{
+    display:flex;
+    justify-content: center;
+    background-color: #fae5df
+}
+
+.postTitle{
+    background-color: #FFFFFF	;
+    border-radius: 5px;
+    padding:10px;
+    width:35vw  
+}
+
+.postContent{
+    
+    background-color: #FFFFFF	;
+    border-radius: 5px;
+    padding:20px;
+    width:35vw;  
+    height:46vw
+}
+
+
+.listOfPosts{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    justify-content: space-evenly;
+    padding:5px;
+}
+
+.postCommands{
+    display:flex;
+    justify-content:space-between
+}
+
+.post{
+    background-color: #fae5df;
+    padding:5px
 }

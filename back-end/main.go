@@ -23,6 +23,7 @@ func main() {
 	router.DELETE("/posts/:pid", deletePost)
 
 	router.GET("/comments/:pid", getCommentsByPid)
+	router.GET("/comments/searchbycid/:cid", getCommentByCid)
 	router.POST("/comments/:pid", postCommentByPid)
 	router.PUT("/comments/:cid", updateComment)
 	router.PUT("/comments/likes/:cid", updateCommentLikes)

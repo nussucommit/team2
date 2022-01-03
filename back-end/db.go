@@ -14,7 +14,7 @@ func setUpDBConnection() *sql.DB {
 		host     = "localhost"
 		port     = 5432 // default set to 5432
 		user     = "postgres"
-		password = "password"
+		password = "password "
 		dbname   = "commitWinterProject"
 	)
 
@@ -137,7 +137,7 @@ func postPost(c *gin.Context) {
 		return
 	}
 
-	result, err := db.Exec("INSERT INTO posts (title, description, createdBy) VALUES ($1, $2, $3, $4)", post.Title, post.Description, post.CreatedBy)
+	result, err := db.Exec("INSERT INTO posts (title, description, createdBy) VALUES ($1, $2, $3)", post.Title, post.Description, post.CreatedBy)
 	if err != nil {
 		c.IndentedJSON(http.StatusNotFound, gin.H{"message": err})
 		return
@@ -218,6 +218,29 @@ func deletePost(c *gin.Context) {
 }
 
 //------------------------------------------------- COMMENTS----------------------------------------------
+
+
+
+
+func getCommentByCid(c *gin.Context) {
+	cid := c.Param("cid")
+	var comment Comment
+
+	row := db.QueryRow("SELECT * FROM comments WHERE cid = $1", cid)
+
+	if err := row.Scan(&comment.Cid, &comment.Description, &comment.Pid, &comment.CreatedBy, &comment.CreatedTime, &comment.LikesCount); err != nil {
+		if err == sql.ErrNoRows {
+			c.IndentedJSON(http.StatusNotFound, gin.H{"message": "no row"})
+			return
+		}
+
+		c.IndentedJSON(http.StatusNotFound, gin.H{"message": err})
+		return
+	}
+	c.IndentedJSON(http.StatusOK, comment)
+}
+
+
 
 func getCommentsByPid(c *gin.Context) {
 	pid := c.Param("pid")

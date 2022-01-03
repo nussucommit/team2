@@ -35,12 +35,18 @@ function Post(props) {
   
   
     return (
-      <div>
+      <div className="post">
+      <div className = "postContent">
           <h1>{PostDetails.title}</h1>
           <p>{PostDetails.description}</p> 
-          <p>{PostDetails.likesCount}</p>
+          <div className="postCommands">
+          <p>likes: {PostDetails.likesCount}</p>
+          <div className="navigationButtonsPosition">
           <Link to = {"/CreateComment/"+pid}>Add a Comment</Link>
+          </div>
+          </div>
           <Comments pid={pid} author={props.uid}/>   
+      </div>
       </div>
     );
   }
@@ -50,7 +56,9 @@ function Post(props) {
       <h1>{PostDetails.title}</h1>
       <p>{PostDetails.description}</p> 
       <p>{PostDetails.likesCount}</p>
+      <div className="navigationButtonsPosition">
       <Link to = {"/CreateComment/"+pid}>Add a Comment</Link>
+      </div>
       <button onClick={likePost}>Like the post</button>
       <Comments pid={pid} author={props.uid}/>   
   </div>
