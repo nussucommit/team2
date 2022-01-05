@@ -4,6 +4,8 @@ import CreatePost from "./CreatePost";
 import CreateComment from "./CreateComment";
 import EditPost from "./EditPost";
 import EditComment from "./EditComment"
+import SearchByAuthor from "./SearchByAuthor"
+import { useEffect, useState} from 'react';
 
 
 import {
@@ -17,6 +19,11 @@ function Home(props) {
     const userWelcome = "Welcome User " + props.id +"!"
     
     const CreatePostURL = "/CreatePost" 
+    const [CurrentSearch,changeSearchType] = useState('author')
+    const [SearchContent,changeSearchContent] = useState('')
+
+    const onChange = (e)=>(changeSearchType(e.target.value))
+    const changeSearch = (e)=>(changeSearchContent(e.target.value))
 
     return (
       <Router>
@@ -35,16 +42,28 @@ function Home(props) {
         <div className='navigationButtonsPosition'>
         <Link to = "/" onClick={props.logoutFunction} className='navigationButtons'>Logout</Link>
         </div>
+        <div className='navigationButtonsPosition'>
+        <select onChange={onChange} defaultValue="author">
+        <option value="content">Content</option>
+        <option value="author">Author</option>
+        </select>
+        </div>
+        <div className='navigationButtonsPosition'>
+        <input type="text" onChange={changeSearch}></input>
+        </div>
+        <div className='navigationButtonsPosition'>
+        <Link to = {"/author/"+"?name="+SearchContent}><button>Search</button></Link>
+        </div>
 
-
-
+        <p>{CurrentSearch}</p>
+        
+        
         </div>
 
         <div>
         <p>{userWelcome}</p>
         </div>
         </div>
-        
         
 
         <div className='body'>
@@ -71,6 +90,10 @@ function Home(props) {
 
             <Route exact path ="/EditComment/:cid">
                 <EditComment uid={props.id}/>
+            </Route>
+
+            <Route exact path ="/author/">
+                <SearchByAuthor id={props.id}/>
             </Route>
 
         </Switch>

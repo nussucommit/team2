@@ -82,3 +82,7 @@
     background-color: #fae5df;
     padding:5px
 }
+
+.CreateAndLikePost{
+    display:flex
+}

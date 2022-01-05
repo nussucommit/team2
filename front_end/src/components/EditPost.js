@@ -8,7 +8,7 @@ function EditPost(props) {
   
   const {pid} = useParams()
   
-  
+  console.log(pid)
   const[PostDetails,setPost] = useState(null) 
   const URL = "http://localhost:8080/posts/" + pid
 

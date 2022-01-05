@@ -1,34 +1,30 @@
 import { useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 
-function Posts(props) {
-  const[PostTitles,setPosts] = useState([]) 
-
+function SearchByAuthor(props) {
+  const[PostTitles,setPosts] = useState(null) 
   
+  const query = new URLSearchParams(useLocation().search);
+  const name = query.get("name");
   
+  const URL = 'http://localhost:8080/posts/author/'+name
+
 
   const deletePost=(id)=>{
     var url = 'http://localhost:8080/posts/'+id.toString()
-    axios.delete(url,{data:{}}).catch(err=>console.log(err))
+    axios.delete(url,{data:{}}).catch(err=>console.log(err)) 
   }
-
-  
 
   useEffect(()=>
-  axios.get('http://localhost:8080/posts').then(res=>{setPosts(res.data)}).catch(err=>console.log(err)))
-
-  if (PostTitles==null){
-    return (<p>No Posts</p>)
-  }
-
-  const sorted = [...PostTitles].sort((a, b) => a.createdTime.localeCompare(b.createdTime));
+  axios.get(URL).then(res=>{setPosts(res.data)}).catch(err=>console.log(err)))
 
     return (
       <div className="listOfPosts">
-        {PostTitles === null?<p>No Posts</p>: sorted.map((Title)=>(props.id!==Title.createdBy?(
+        
+        {PostTitles === null?<p>No Posts</p>: PostTitles.map((Title)=>(props.id!==Title.createdBy?(
           <div key={Title.pid} className='postTitle'>
             <Link to = {"/ClickedPost/"+Title.pid} >{Title.title}</Link>
             <p>Likes:{Title.likesCount}</p>
@@ -50,4 +46,4 @@ function Posts(props) {
     );
   } 
 
-export default Posts;
+export default SearchByAuthor ;

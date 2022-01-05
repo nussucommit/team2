@@ -15,7 +15,7 @@ function App() {
   )
   
   if(isLoggedIn){
-    return <Home id={3} logoutFunction = {LoginAndOut}/>
+    return <Home id={4} logoutFunction = {LoginAndOut}/>
   }
   else{
     return <Login loginFunction = {LoginAndOut}/>

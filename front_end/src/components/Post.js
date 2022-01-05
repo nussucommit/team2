@@ -41,8 +41,9 @@ function Post(props) {
           <p>{PostDetails.description}</p> 
           <div className="postCommands">
           <p>likes: {PostDetails.likesCount}</p>
+          <p>Created By {PostDetails.createdBy} at {PostDetails.createdTime.slice(0,10)}</p>
           <div className="navigationButtonsPosition">
-          <Link to = {"/CreateComment/"+pid}>Add a Comment</Link>
+          <Link to = {"/CreateComment/"+pid}><button>Add a Comment</button></Link>
           </div>
           </div>
           <Comments pid={pid} author={props.uid}/>   
@@ -52,15 +53,22 @@ function Post(props) {
   }
   
   return (
-  <div>
-      <h1>{PostDetails.title}</h1>
-      <p>{PostDetails.description}</p> 
-      <p>{PostDetails.likesCount}</p>
-      <div className="navigationButtonsPosition">
-      <Link to = {"/CreateComment/"+pid}>Add a Comment</Link>
-      </div>
-      <button onClick={likePost}>Like the post</button>
+  <div className="post">
+    <div className = "postContent">
+          <h1>{PostDetails.title}</h1>
+          <p>{PostDetails.description}</p> 
+          <div className="postCommands">
+          <p>likes: {PostDetails.likesCount}</p>
+          <p>Created By {PostDetails.createdBy} at {PostDetails.createdTime.slice(0,10)}</p>
+          <div className="navigationButtonsPosition">
+          <div className="CreateAndLikePost">
+          <Link to = {"/CreateComment/"+pid}><button>Add a Comment</button></Link>
+          <button onClick={likePost}>Like the post</button>
+          </div>
+          </div>
+          </div>
       <Comments pid={pid} author={props.uid}/>   
+      </div>
   </div>
   );
 }
